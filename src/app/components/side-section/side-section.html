@@ -1,0 +1,26 @@
+<section id="tasks">
+      
+    <div style="display: flex; justify-content: space-between;">
+        @if(inputName){
+            <header>
+                <p>{{ inputName }} 's tasks</p>
+            </header>
+            <menu>
+                <button (click)="onAddTaskButtonClicked()">Add Task</button>
+            </menu>
+        }
+    </div>
+    
+    @if (addButtonClicked) {
+        <app-new-task (taskCanceled)="addButtonClicked = false" (taskCreated)="onTaskCreated($event)"/>
+    }
+    <ul>
+        @for(t of filteredTasks; track t.id){
+            <app-card>
+                <li>
+                    <app-tasks [task]="t" (Complete)="onTaskComplete($event)"/>
+                </li>
+            </app-card>
+        }
+    </ul>
+</section>
