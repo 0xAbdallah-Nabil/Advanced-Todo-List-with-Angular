@@ -39,11 +39,15 @@ export class SideSection {
     dueDate: '2024-06-15',
   },
 ]
+  constructor() {
+    this.dummyTasks=localStorage.getItem('tasks') ? this.dummyTasks = JSON.parse(localStorage.getItem('tasks')!) : [];
+  }
   get filteredTasks() {
     return this.dummyTasks.filter(task => task.userId === this.id);
   }
   onTaskComplete(id: string) {
     this.dummyTasks = this.dummyTasks.filter(task => task.id !== id);
+    this.savelocalStorage();
   }
   onAddTaskButtonClicked() {
     this.addButtonClicked = true;
@@ -57,5 +61,9 @@ export class SideSection {
       dueDate: newTask.dueDate
     });
     this.addButtonClicked = false;
+    this.savelocalStorage();
+  }
+  savelocalStorage() {
+    localStorage.setItem('tasks', JSON.stringify(this.dummyTasks));
   }
 }
