@@ -1,4 +1,7 @@
-<app-header></app-header>
+@if (loggedInClicked) {
+    <app-login (loggedInCanceled)="loggedInClicked = false"></app-login>
+}
+<app-header (loggedInClicked)="loggedInClicked = $event"></app-header>
 <main>
     <ul id="users">
         @for(u of user; track u.id){
